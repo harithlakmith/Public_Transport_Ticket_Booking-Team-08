@@ -10,7 +10,7 @@ namespace TranspotationTicketBooking.Models
     {
         [Key]
         public long SId { get; set; }
-        public long BusNo { get; set; }
+        public string BusNo { get; set; }
         public long RId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime Date { get; set; }
