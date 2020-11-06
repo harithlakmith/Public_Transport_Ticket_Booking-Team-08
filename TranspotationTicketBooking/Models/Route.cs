@@ -17,6 +17,6 @@ namespace TranspotationTicketBooking.Models
         public float Duration { get; set; }
         public float Distance { get; set; }
         public float RNum { get; set; }
-        public string Column { get; set; }
+        
     }
 }
