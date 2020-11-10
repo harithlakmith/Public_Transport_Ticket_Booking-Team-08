@@ -28,6 +28,11 @@ namespace TranspotationTicketBooking
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddControllers();
+             services.AddDbContext<TicketBookingDBContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("Conn")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
