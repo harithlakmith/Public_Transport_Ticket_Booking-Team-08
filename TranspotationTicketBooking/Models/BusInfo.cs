@@ -7,6 +7,7 @@ namespace TranspotationTicketBooking.Models
 {
     public class BusInfo
     {
+        [Key]
         public string BusNo { get; set; }
         public string DriverName { get; set; }
         public long  DriverNo{ get; set; }
