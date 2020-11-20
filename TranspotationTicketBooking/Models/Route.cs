@@ -14,8 +14,8 @@ namespace TranspotationTicketBooking.Models
         public string StartHolt { get; set; }
         public long StopHoltId { get; set; }
         public string StopHolt { get; set; }
-        public float Duration { get; set; }
-        public float Distance { get; set; }
+        public long Duration { get; set; }
+        public long Distance { get; set; }
         public string RNum { get; set; }
         
     }
