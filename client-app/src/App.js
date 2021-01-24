@@ -1,24 +1,55 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Add_Route from './component/add_route/Add_Route';
+import Find_Bus from './component/find_bus/Find_Bus';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+    
+    <div>
+       <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+        <a href="#" class="navbar-brand">
+            <img src="./logo.png" height="58" alt="CoolBrand"/>
         </a>
-      </header>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/home" class="nav-item nav-link active">Home</a>
+                <a href="/add-route" class="nav-item nav-link">Add Route</a>
+                
+            </div>
+            <div class="navbar-nav ml-auto">
+                <a href="#" class="nav-item nav-link">Passenger Login</a>
+                <a href="#" class="nav-item nav-link">Admin Login</a>
+            </div>
+        </div>
+    </nav>
+
+
+       <BrowserRouter>
+        <Switch>
+          <Route path="/add-route">
+          <Add_Route />
+          </Route>
+        
+          <Route path="/home">
+            <Find_Bus />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+
+         
     </div>
+   
   );
 }
 

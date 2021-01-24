@@ -9,7 +9,7 @@ using TranspotationTicketBooking.Models;
 
 namespace TranspotationTicketBooking.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PassengerController : ControllerBase
     {
