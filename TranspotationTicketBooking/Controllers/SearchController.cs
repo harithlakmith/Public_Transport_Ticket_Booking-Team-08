@@ -9,6 +9,7 @@ using TranspotationTicketBooking.Models;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using System.Web;
+using System.Data;
 
 namespace TranspotationTicketBooking.Controllers
 {
@@ -83,9 +84,12 @@ namespace TranspotationTicketBooking.Controllers
 
             var SessionList =  sessionSelected.Where(s => s.Seats > _context.Ticket.Where(t=> t.SId==s.SId).Count()).ToList();
 
+            foreach (SessionList)
+            { 
+                
+            }
 
-
-            return SessionList;
+                return SessionList;
 
         }
 
