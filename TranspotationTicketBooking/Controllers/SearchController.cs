@@ -79,10 +79,13 @@ namespace TranspotationTicketBooking.Controllers
                                Date = ses.Date,
                                Seats = ses.Seats,
                                 
-                           }
-                           ).ToList();
+                           }).ToList();
 
-            return sessionSelected;
+            var SessionList =  sessionSelected.Where(s => s.Seats > _context.Ticket.Where(t=> t.SId==s.SId).Count()).ToList();
+
+
+
+            return SessionList;
 
         }
 
