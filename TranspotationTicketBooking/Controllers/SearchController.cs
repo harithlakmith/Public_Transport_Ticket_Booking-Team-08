@@ -27,7 +27,7 @@ namespace TranspotationTicketBooking.Controllers
 
 
         [HttpGet("{SearchTicket}")]
-        public async Task<ActionResult<IEnumerable<RID>>> GetTownList(DateTime date, string from_, string to_ )
+        public async Task<ActionResult<IEnumerable<Session>>> GetTownList(DateTime date, string from_, string to_ )
         {
 
             //var sessions = await _context.Session.Where(s => s.Date == date).ToListAsync();
@@ -58,14 +58,31 @@ namespace TranspotationTicketBooking.Controllers
                                  ).ToList();*/
 
             var FindRoute = (from fr in TownList.Where(fr => fr.HoltName == from_)
-                             join t in TownList.Where(t => t.HoltName == to_) on fr.RId equals t.RId
-                             select new RID()
+                             join t in TownList.Where(t => t.HoltName == to_) on fr.RId equals t.RId where(fr.HoltId < t.HoltId )
+                             select new FindRId()
                              {
-                                 RouteID = fr.RId
+                                 RouteID = fr.RId,
+                                 ToHoltId = t.HoltId,
+                                 FromHoltId = fr.HoltId
+                                
                              }
                                 ).ToList();
 
-            return FindRoute;
+            var sessionSelected = (from frt in FindRoute
+                           join ses in _context.Session.Where(s => s.Date == date) on frt.RouteID equals ses.RId
+                           select new Session()
+                           {
+                               SId = ses.SId,
+                               BusNo = ses.BusNo,
+                               RId = ses.RId,
+                               StartTime = ses.StartTime,
+                               Date = ses.Date,
+                               Seats = ses.Seats,
+                                
+                           }
+                           ).ToList();
+
+            return sessionSelected;
 
         }
 
