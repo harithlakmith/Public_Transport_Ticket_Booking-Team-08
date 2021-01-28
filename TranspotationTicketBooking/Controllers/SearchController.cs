@@ -23,22 +23,49 @@ namespace TranspotationTicketBooking.Controllers
             _context = context;
         }
 
-        // GET: search/SearchTicket?date=#&from=#&to=#+
+        // GET: search/SearchTicket?date=#&from_=#&to_=#
 
 
         [HttpGet("{SearchTicket}")]
-        public async Task<ActionResult<IEnumerable<Session>>> GetSessions(DateTime date, string from, string to )
+        public async Task<ActionResult<IEnumerable<RID>>> GetTownList(DateTime date, string from_, string to_ )
         {
 
             //var sessions = await _context.Session.Where(s => s.Date == date).ToListAsync();
            var sessions = (from s in _context.Session.Where(s => s.Date == date)
-                            select new Session()
+                            select new RID()
                             {
-                                RId = s.RId
-                            }).ToList();
-           
-            
-            return sessions;
+                                RouteID = s.RId
+                            }).Distinct().ToList();
+
+            var TownList = (from r in sessions
+                           join s in _context.RouteInfo on r.RouteID equals s.RId
+                           select new TownList()
+                           {
+                               Id = s.Id,
+                               RId = s.RId,
+                               HoltId = s.HoltId,
+                               HoltName = s.HoltName,
+                               Price = s.Price,
+                               Time = s.Time,
+                               Distance =s.Distance,
+                               RouteID= r.RouteID
+                           }
+                                ).ToList();
+
+            /* var FindRoute = ((from fr in TownList.Where(fr => fr.HoltName == from_) select fr.RId)
+                             .Intersect
+                                 (from t in TownList.Where(t => t.HoltName == to_) select t.RId)
+                                 ).ToList();*/
+
+            var FindRoute = (from fr in TownList.Where(fr => fr.HoltName == from_)
+                             join t in TownList.Where(t => t.HoltName == to_) on fr.RId equals t.RId
+                             select new RID()
+                             {
+                                 RouteID = fr.RId
+                             }
+                                ).ToList();
+
+            return FindRoute;
 
         }
 
