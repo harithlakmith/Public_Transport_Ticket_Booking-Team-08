@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Add_Route from './component/add_route/Add_Route';
 import Find_Bus from './component/find_bus/Find_Bus';
+import Test_case from './component/Test_case/Test_case';
 
 
 
@@ -44,6 +45,11 @@ function App() {
           <Route path="/home">
             <Find_Bus />
           </Route>
+
+          <Route path="/test">
+          <Test_case />
+          </Route>
+
         </Switch>
       </BrowserRouter>
 
