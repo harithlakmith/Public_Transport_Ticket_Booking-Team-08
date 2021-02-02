@@ -84,14 +84,28 @@ namespace TranspotationTicketBooking.Controllers
 
             var SessionList =  sessionSelected.Where(s => s.Seats > _context.Ticket.Where(t=> t.SId==s.SId).Count()).ToList();
 
-            foreach (SessionList)
+            /*foreach (SessionList)
             { 
                 
-            }
+            }*/
 
                 return SessionList;
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
