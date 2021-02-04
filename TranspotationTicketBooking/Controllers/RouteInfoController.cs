@@ -27,7 +27,26 @@ namespace TranspotationTicketBooking.Controllers
             return await _context.RouteInfo.ToListAsync();
         }
 
-        // GET: api/RouteInfo/5
+        // GET: RouteInfo/townlist
+        [HttpGet("townlist")]
+        public async Task<ActionResult<IEnumerable<SearchTownlist>>> GetTownList()
+        {
+            var townList = (from l in _context.RouteInfo
+                           select new SearchTownlist()
+                           {
+                               HoltName = l.HoltName
+                           }).Distinct().ToList();
+            if (townList == null)
+            {
+                return NotFound();
+            }
+
+            return townList;
+        }
+
+
+
+        // GET: RouteInfo/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RouteInfo>> GetRouteInfo(int id)
         {

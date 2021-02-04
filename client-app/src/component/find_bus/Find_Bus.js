@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import './welcome-text/welcome_text.css';
+//import './welcome-text/welcome_text.css';
 //import './css/datepicker.css';
 //import './css/bootstrap.min.css';
 import './css/tooplate-style.css';
 import './Find_Bus.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import welcome_text from './welcome-text/welcome_text';
+//import welcome_text from './welcome-text/welcome_text';
 import axios from 'axios'
 
  class Find_Bus extends Component {
@@ -13,7 +13,7 @@ import axios from 'axios'
         towns: []
       }
     componentDidMount(){
-        axios.get('http://localhost:5000/RouteInfo')
+        axios.get('http://localhost:5000/RouteInfo/townlist')
           .then(res => {
             console.log(res);
             this.setState({
@@ -26,7 +26,7 @@ import axios from 'axios'
         const townList = towns.length ? (
           towns.map(town => {
             return (
-                <option value="1">{town.HoltName}</option>
+                <option value={town.HoltName}>{town.HoltName}</option>
             )
           })
         ) : (
@@ -42,7 +42,8 @@ import axios from 'axios'
             <div class="container ie-h-align-center-fix">
                 <div class="row">
                     <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                        <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
+
+                        <form action="/bus-list/:id" method="get" class="tm-search-form tm-section-pad-2">
                             <div class="form-row tm-search-form-row">
                                 <div class="form-group tm-form-element tm-form-element-50">
                                 <select name="from" class="form-control tm-select" id="from">
