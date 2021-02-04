@@ -96,6 +96,7 @@ namespace TranspotationTicketBooking.Controllers
                                 
                            }).ToList();
 
+
             var sessionSelectedExt = (from ssl in sessionSelected
                                   join rt in _context.Route on ssl.RId equals rt.RId
                                   select new TicketInfo()
@@ -123,6 +124,11 @@ namespace TranspotationTicketBooking.Controllers
             { 
                 
             }*/
+
+
+          
+
+            
 
                 return SessionList;
 
