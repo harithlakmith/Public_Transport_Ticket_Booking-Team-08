@@ -7,13 +7,14 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Add_Route from './component/add_route/Add_Route';
 import Find_Bus from './component/find_bus/Find_Bus';
 import Test_case from './component/Test_case/Test_case';
+import Bus_List from './component/Bus_List/Bus_List';
 
 
 
 function App() {
   return (
     
-    <div>
+    <div class="container">
        <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
         <a href="#" class="navbar-brand">
             <img src="./logo.png" height="58" alt="CoolBrand"/>
@@ -48,6 +49,10 @@ function App() {
 
           <Route path="/test">
           <Test_case />
+          </Route>
+
+          <Route path="/bus-list">
+          <Bus_List />
           </Route>
 
         </Switch>

@@ -28,7 +28,7 @@ namespace TranspotationTicketBooking.Controllers
 
 
         [HttpGet("{SearchTicket}")]
-        public async Task<ActionResult<IEnumerable<Session>>> GetTownList(DateTime date, string from_, string to_ )
+        public async Task<ActionResult<IEnumerable<TicketInfo>>> GetTownList(DateTime date, string from_, string to_ )
         {
 
             //var sessions = await _context.Session.Where(s => s.Date == date).ToListAsync();
@@ -64,25 +64,60 @@ namespace TranspotationTicketBooking.Controllers
                              {
                                  RouteID = fr.RId,
                                  ToHoltId = t.HoltId,
-                                 FromHoltId = fr.HoltId
+                                 ToDistance = t.Distance,
+                                 ToPrice = t.Price,
+                                 ToTime = t.Time,
+                                 FromHoltId = fr.HoltId,
+                                 FromDistance= fr.Distance,
+                                 FromPrice = fr.Price,
+                                 FromTime = fr.Time
                                 
                              }
                                 ).ToList();
 
             var sessionSelected = (from frt in FindRoute
                            join ses in _context.Session.Where(s => s.Date == date) on frt.RouteID equals ses.RId
-                           select new Session()
+                           select new TicketInfo()
                            {
                                SId = ses.SId,
                                BusNo = ses.BusNo,
                                RId = ses.RId,
+                               RNum = null,
+                               RouteStartHolt = null,
+                               RouteStopHolt = null,
+                               FromHolt = null,
+                               ToHolt = null,
+                               TicketPrice = frt.ToPrice-frt.FromPrice,
+                               ArrivedTime = ses.StartTime +  TimeSpan.FromHours(frt.FromTime),
+                               Duration = frt.ToTime-frt.FromTime,
                                StartTime = ses.StartTime,
                                Date = ses.Date,
                                Seats = ses.Seats,
                                 
                            }).ToList();
 
-            var SessionList =  sessionSelected.Where(s => s.Seats > _context.Ticket.Where(t=> t.SId==s.SId).Count()).ToList();
+            var sessionSelectedExt = (from ssl in sessionSelected
+                                  join rt in _context.Route on ssl.RId equals rt.RId
+                                  select new TicketInfo()
+                                  {
+                                      SId = ssl.SId,
+                                      BusNo = ssl.BusNo,
+                                      RId = ssl.RId,
+                                      RNum = rt.RNum,
+                                      RouteStartHolt = rt.StartHolt,
+                                      RouteStopHolt = rt.StopHolt,
+                                      FromHolt = from_,
+                                      ToHolt = to_,
+                                      TicketPrice = ssl.TicketPrice,
+                                      ArrivedTime = ssl.ArrivedTime,
+                                      Duration = ssl.Duration,
+                                      StartTime = ssl.StartTime,
+                                      Date = ssl.Date,
+                                      Seats = ssl.Seats,
+
+                                  }).ToList();
+
+            var SessionList =  sessionSelectedExt.Where(s => s.Seats > _context.Ticket.Where(t=> t.SId==s.SId).Count()).ToList();
 
             /*foreach (SessionList)
             { 
