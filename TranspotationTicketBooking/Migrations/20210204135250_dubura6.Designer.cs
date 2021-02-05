@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TranspotationTicketBooking.Data;
 
 namespace TranspotationTicketBooking.Migrations
 {
     [DbContext(typeof(TicketBookingDBContext))]
-    partial class TicketBookingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210204135250_dubura6")]
+    partial class dubura6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,29 +42,29 @@ namespace TranspotationTicketBooking.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3532d779-9327-4d51-a1ba-0690d6ec1e31",
-                            ConcurrencyStamp = "35099626-9328-4394-8070-98b0ab869854",
+                            Id = "35fd0b10-2883-4726-b35e-870054fc83e0",
+                            ConcurrencyStamp = "43c171ee-4195-4b6b-b441-5b7ab1345e50",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "78039f45-5aa7-4bfa-b3ec-0adea1d4f016",
-                            ConcurrencyStamp = "43620d41-f39e-4dec-9290-b65a92746551",
+                            Id = "66057f70-c0e2-4c66-9426-d0780d2d2578",
+                            ConcurrencyStamp = "b8a7f4a8-f356-47a3-8da1-e86b9d440e2c",
                             Name = "Passenger",
                             NormalizedName = "PASSENGER"
                         },
                         new
                         {
-                            Id = "c9adafca-c20a-4825-9f1e-6544764e362c",
-                            ConcurrencyStamp = "c80bc4b4-b845-453b-b3b7-c1e90d54a11c",
+                            Id = "77d6ce64-cd6e-485d-90e5-6dad0d923087",
+                            ConcurrencyStamp = "c5c3f347-6617-45d6-91c9-7adc8cd7ad28",
                             Name = "Busowner",
                             NormalizedName = "BUSOWNER"
                         },
                         new
                         {
-                            Id = "b421acd0-ca11-4906-9f2f-1d2ec1a5ec47",
-                            ConcurrencyStamp = "ecc5ef41-39bd-4baf-9a68-5e66fc825bab",
+                            Id = "5f4221b2-6564-4041-8ac6-1609af698370",
+                            ConcurrencyStamp = "acdbdbf0-7807-4902-a2dc-c188347f0b27",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
