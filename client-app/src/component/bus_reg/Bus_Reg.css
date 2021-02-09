@@ -1,0 +1,66 @@
+body {
+  color: #fff;
+}
+
+.container {
+  margin-top: 100px;
+  background: #5c0157;
+  width: auto;
+  height: auto;
+}
+
+.bus_reg {
+  margin: 30px auto;
+}
+
+.box {
+  color: #7a7a7a;
+  width: auto;
+  height: auto;
+  margin: 80px 25px 40px 25px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 5px 10px #888888;
+  padding: 30px;
+}
+
+.box h1 {
+  margin: 5px 0 25px;
+  color: #500aa1;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.box-box1 {
+  width: 3%;
+  height: auto;
+}
+
+.box-box2 {
+  width: 50%;
+  height: auto;
+}
+
+.box-box4 {
+  width: 46%;
+  height: auto;
+}
+
+.form {
+  width: 240px;
+}
+
+.button {
+  background: #5b3eda;
+  font-size: 20px;
+  border-radius: 8px;
+  padding: 10px 60px;
+}
+
+.h3 {
+  color: black;
+}
+
+.h5 {
+  color: black;
+}
