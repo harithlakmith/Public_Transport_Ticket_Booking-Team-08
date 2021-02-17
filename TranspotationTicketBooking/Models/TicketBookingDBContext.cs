@@ -1,6 +1,8 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using TranspotationTicketBooking.Models.Users;
 
 
 namespace TranspotationTicketBooking.Models
@@ -13,12 +15,22 @@ namespace TranspotationTicketBooking.Models
 
         }
 
-        public virtual DbSet<BusInfo> BusInfo { get; set; }
-        public virtual DbSet<Passenger> Passenger { get; set; }
-        public virtual DbSet<Route> Route { get; set; }
-        public virtual DbSet<RouteInfo> RouteInfo { get; set; }
-        public virtual DbSet<Session> Session { get; set; }
-        public virtual DbSet<Ticket> Ticket { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<BusInfo> BusInfo { get; set; }
+        public DbSet<Passenger> Passenger { get; set; }
+        public DbSet<Route> Route { get; set; }
+        public DbSet<RouteInfo> RouteInfo { get; set; }
+        public DbSet<Session> Session { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
+        }
+
 
 
     }

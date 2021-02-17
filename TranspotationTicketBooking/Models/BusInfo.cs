@@ -16,7 +16,7 @@ namespace TranspotationTicketBooking.Models
         public int CondNo { get; set; }
         public int MaxSeats { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        //public string Password { get; set; }
         public int Verified { get; set; }
     
     }

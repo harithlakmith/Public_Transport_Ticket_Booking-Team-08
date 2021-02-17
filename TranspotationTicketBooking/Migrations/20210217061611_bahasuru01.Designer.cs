@@ -10,8 +10,8 @@ using TranspotationTicketBooking.Models;
 namespace TranspotationTicketBooking.Migrations
 {
     [DbContext(typeof(TicketBookingDBContext))]
-    [Migration("20210116170937_second")]
-    partial class second
+    [Migration("20210217061611_bahasuru01")]
+    partial class bahasuru01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,68 @@ namespace TranspotationTicketBooking.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "6d3dde6c-c4fe-42c1-9279-032d7d127751",
+                            ConcurrencyStamp = "211c7baa-5776-4823-9c16-39d62f95410d",
+                            Name = "Visitor",
+                            NormalizedName = "VISITOR"
+                        },
+                        new
+                        {
+                            Id = "5935a28b-5333-4dfe-9c51-50ad33135d05",
+                            ConcurrencyStamp = "3692087e-e2d9-48b1-93fe-68f43c99afe9",
+                            Name = "Passenger",
+                            NormalizedName = "PASSENGER"
+                        },
+                        new
+                        {
+                            Id = "06f1dbe0-dfe7-4a91-b89c-a6df982c3419",
+                            ConcurrencyStamp = "e0258544-c5fa-4450-8fee-f9e434895c16",
+                            Name = "BusController",
+                            NormalizedName = "BUSCONTROLLER"
+                        },
+                        new
+                        {
+                            Id = "f2d3cc26-b90a-44b9-b545-33254068ec15",
+                            ConcurrencyStamp = "a8042d8e-7338-44ab-9493-87df0b930d0b",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("IdentityUserRole<string>");
+                });
 
             modelBuilder.Entity("TranspotationTicketBooking.Models.BusInfo", b =>
                 {
@@ -44,13 +106,15 @@ namespace TranspotationTicketBooking.Migrations
                     b.Property<int>("MaxSeats")
                         .HasColumnType("int");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Verified")
                         .HasColumnType("int");
 
                     b.HasKey("BusNo");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("BusInfo");
                 });
@@ -68,19 +132,21 @@ namespace TranspotationTicketBooking.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Tp")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Tp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Verified")
                         .HasColumnType("int");
 
                     b.HasKey("PId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Passenger");
                 });
@@ -212,6 +278,94 @@ namespace TranspotationTicketBooking.Migrations
                     b.HasKey("TId");
 
                     b.ToTable("Ticket");
+                });
+
+            modelBuilder.Entity("TranspotationTicketBooking.Models.Users.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BusNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NIC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("PId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TranspotationTicketBooking.Models.BusInfo", b =>
+                {
+                    b.HasOne("TranspotationTicketBooking.Models.Users.User", null)
+                        .WithMany("BusInfos")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("TranspotationTicketBooking.Models.Passenger", b =>
+                {
+                    b.HasOne("TranspotationTicketBooking.Models.Users.User", null)
+                        .WithMany("Passengers")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("TranspotationTicketBooking.Models.Users.User", b =>
+                {
+                    b.Navigation("BusInfos");
+
+                    b.Navigation("Passengers");
                 });
 #pragma warning restore 612, 618
         }

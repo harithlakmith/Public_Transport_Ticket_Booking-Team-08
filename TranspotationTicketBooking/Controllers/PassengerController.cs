@@ -76,14 +76,14 @@ namespace TranspotationTicketBooking.Controllers
         // POST: api/Passenger
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        /*[HttpPost]
         public async Task<ActionResult<Passenger>> PostPassenger(Passenger passenger)
         {
             _context.Passenger.Add(passenger);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPassenger", new { id = passenger.PId }, passenger);
-        }
+        }*/
 
         // DELETE: api/Passenger/5
         [HttpDelete("{id}")]

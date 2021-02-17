@@ -11,9 +11,9 @@ namespace TranspotationTicketBooking.Models
         [Key]
         public long PId { get; set; }
         public string Name { get; set; }
-        public long Tp { get; set; }
+        public string Tp { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        //public string Password { get; set; }
         public int Verified { get; set; }
         public string Token { get; set; }
         
