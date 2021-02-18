@@ -1,8 +1,187 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../css/bootstrap.min.css';
+import '../../css/style.css';
+
+import axios from 'axios';
 
  class Test_case extends Component {
-    render() {
+
+	constructor(props){  
+		super(props) 
+		this.state = {
+		  
+		  NIC:'',
+		  First_name:'',
+		  Last_name:'',
+		  Email:'',
+		  Password:'',
+		  Telephone:''
+	
+		};
+	    this.handleChange = this.handleChange.bind(this);
+		this.AddPass = this.AddPass.bind(this);
+	  }
+	  
+		handleChange = (e) => {
+		  this.setState({[e.target.name]:e.target.value});
+		}
+	  
+		AddPass = () => {
+		  //event.preventDefault();
+	
+		  axios.post('http://localhost:5000/Passenger', {
+			//PID: parseInt(this.state.NIC),
+			Name: this.state.First_name,
+			Email: this.state.Email,
+			Password: this.state.Password,
+			Tp: parseInt(this.state.Telephone),
+			Token : 'test',
+			Verified:0
+	
+		})
+		  .then(json => {
+		  
+			  console.log(json.data);  
+			
+		  });   
+	
+		}
+	
+	  render() {
+	  return (
+	
+	<div>
+		
+		
+        <section class="hero-section" id="home">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="hero-wrapper mb-4">
+                            <p class="font-16 text-uppercase">Discover Invoza Today</p>
+                            <h1 class="hero-title mb-4">Make your Site Amazing & Unique with <span class="text-primary">Invoza</span></h1>
+
+                            <p>To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine occidental</p>
+
+                            <div class="mt-4">
+                                <a href="#" class="btn btn-primary mt-2 mr-2">Get Started</a>
+                                <a href="#" class="btn btn-success mt-2 mr-2">Learn more</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-lg-6 col-sm-8">
+                        <div class="home-img mt-5 mt-lg-0">
+                            <img src="images/home-img.png" alt="" class="img-fluid mx-auto d-block"/>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+         
+        </section>
+       
+        <section class="section bg-light" id="services">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <h5 class="text-primary text-uppercase small-title">Services</h5>
+                            <h4 class="mb-3">Services We Provide</h4>
+                            <p>It will be as simple as occidental in fact, it will be Occidental.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="text-center p-4 mt-3">
+                            <div class="avatar-md mx-auto mb-4">
+                                <span class="avatar-title rounded-circle bg-soft-primary">
+                                    <i data-feather="grid" class="icon-dual-primary"></i>
+                                </span>
+                            </div>
+                            <h5 class="font-18">Bootstrap UI based</h5>
+                            <p class="mb-0">To an English person, it will seem like English as skeptical.</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="text-center p-4 mt-3">
+                            <div class="avatar-md mx-auto mb-4">
+                                <span class="avatar-title rounded-circle bg-soft-primary">
+                                    <i data-feather="edit" class="icon-dual-primary"></i>
+                                </span>
+                            </div>
+                            <h5 class="font-18">Easy to customize</h5>
+                            <p class="mb-0">If several languages coalesce, the grammar of the language.</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="text-center p-4 mt-3">
+                            <div class="avatar-md mx-auto mb-4">
+                                <span class="avatar-title rounded-circle bg-soft-primary">
+                                    <i data-feather="headphones" class="icon-dual-primary"></i>
+                                </span>
+                            </div>
+                            <h5 class="font-18">Awesome Support</h5>
+                            <p class="mb-0">The languages only differ in their grammar their pronunciation</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="text-center p-4 mt-3">
+                            <div class="avatar-md mx-auto mb-4">
+                                <span class="avatar-title rounded-circle bg-soft-primary">
+                                    <i data-feather="layers" class="icon-dual-primary"></i>
+                                </span>
+                            </div>
+                            <h5 class="font-18">Creative Design</h5>
+                            <p class="mb-0">Everyone realizes why a new common would be desirable.</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="text-center p-4 mt-3">
+                            <div class="avatar-md mx-auto mb-4">
+                                <span class="avatar-title rounded-circle bg-soft-primary">
+                                    <i data-feather="code" class="icon-dual-primary"></i>
+                                </span>
+                            </div>
+                            <h5 class="font-18">Quality Code</h5>
+                            <p class="mb-0">To achieve this, it would be necessary to have uniform.</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="text-center p-4 mt-3">
+                            <div class="avatar-md mx-auto mb-4">
+                                <span class="avatar-title rounded-circle bg-soft-primary">
+                                    <i data-feather="tablet" class="icon-dual-primary"></i>
+                                </span>
+                            </div>
+                            <h5 class="font-18">Responsive layout</h5>
+                            <p class="mb-0">Their separate existence is a myth. For science, music, etc.</p>
+                        </div>
+                    </div>
+                </div>
+               
+
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <a href="#" class="btn btn-success">View more</a>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+           
+        </section>
+     
+
+		</div>
+	
+	  );
+	  }
+   /* render() {
         return (
             <div class="">
 	<div class="row">
@@ -98,6 +277,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 	</div>
 </div>
         )
-    }
+    }*/
 }
 export default Test_case 

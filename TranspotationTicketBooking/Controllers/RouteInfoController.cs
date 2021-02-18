@@ -98,6 +98,8 @@ namespace TranspotationTicketBooking.Controllers
         [HttpPost]
         public async Task<ActionResult<RouteInfo>> PostRouteInfo(RouteInfo routeInfo)
         {
+          
+
             _context.RouteInfo.Add(routeInfo);
             await _context.SaveChangesAsync();
 

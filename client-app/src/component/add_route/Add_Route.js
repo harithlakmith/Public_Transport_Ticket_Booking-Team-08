@@ -19,7 +19,8 @@ import axios from 'axios';
       stopHoltId:0,
       fullTime:0,
       fullPrice:0,
-      fullDistance:0
+      fullDistance:0,
+      postRoute:0
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -35,14 +36,6 @@ import axios from 'axios';
 
       axios.post('http://localhost:5000/Route', {
         
-       
-        /*StartHolt:this.state.startAt,
-        StartHoltId:1,
-        StopHolt:this.state.stopAt,
-        StopHoltId:100,
-        Duration:this.state.fullTime,
-        Distance:this.state.fullDistance,
-        RNum: "this.state.RNum"*/
 
         StartHoltId: 1,
         StartHolt: this.state.startAt,
@@ -53,11 +46,11 @@ import axios from 'axios';
         RNum: this.state.RNum
     
     })
-      .then(json => {
-      
-          console.log(json.data);  
-        
-      });   
+    .then(res => {
+      this.setState({
+        postRoute: res.data.RId
+      });
+    });   
 
     }
 
@@ -75,12 +68,13 @@ import axios from 'axios';
 
 <div class="mt-5 signup-form">
 <form className="form">
-    <h2 class="mt-4">Add New Route</h2>
+    <h2 class="mt-4">Add New Route{this.state.postRoute}</h2>
     <p>Please fill in this form to create bus routes!</p>
     <hr/>
     <div class="form-group">
         <div class="row">
-            <div class="col"><input type="text" class="form-control" name="RNum" placeholder="RouteNo" onChange={this.handleChange} value={this.state.RNum}  required="required"/></div>
+            <div class="col"
+            ><input type="text" class="form-control" name="RNum" placeholder="RouteNo" onChange={this.handleChange} value={this.state.RNum}  required="required"/></div>
         </div>
     </div>
 

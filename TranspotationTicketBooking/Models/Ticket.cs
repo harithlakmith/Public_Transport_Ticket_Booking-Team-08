@@ -11,9 +11,9 @@ namespace TranspotationTicketBooking.Models
         [Key]
         public long TId { get; set; }
         public long SId { get; set; }
-        public string From{ get; set; }
+        public long From{ get; set; }
         public string FromHalt { get; set; }
-        public string To { get; set; }
+        public long To { get; set; }
         public string ToHalt { get; set; }
         public long PId { get; set; }
         public int NoOfSeats { get; set; }

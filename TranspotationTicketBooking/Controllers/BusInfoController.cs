@@ -41,10 +41,10 @@ namespace TranspotationTicketBooking.Controllers
             return busInfo;
         }
 
-        // PUT: api/BusInfo/5
+        // PUT: BusInfo/update/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        [HttpPost("update/{id}")]
         public async Task<IActionResult> PutBusInfo(string id, BusInfo busInfo)
         {
             if (id != busInfo.BusNo)
@@ -56,7 +56,51 @@ namespace TranspotationTicketBooking.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                
+                _context.BusInfo.Attach(busInfo).Property(x => x.MaxSeats ).IsModified = true;
+                _context.SaveChanges();
+                _context.BusInfo.Attach(busInfo).Property(x => x.DriverName).IsModified = true;
+                _context.SaveChanges();
+                _context.BusInfo.Attach(busInfo).Property(x => x.DriverNo).IsModified = true;
+                _context.SaveChanges();
+                _context.BusInfo.Attach(busInfo).Property(x => x.CondName).IsModified = true;
+                _context.SaveChanges();
+                _context.BusInfo.Attach(busInfo).Property(x => x.CondNo).IsModified = true;
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BusInfoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+        // PUT: BusInfo/update/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost("updatepassword/{id}")]
+        public async Task<IActionResult> PutPassword(string id, BusInfo busInfo)
+        {
+            if (id != busInfo.BusNo)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(busInfo).State = EntityState.Modified;
+
+            try
+            {
+
+                _context.BusInfo.Attach(busInfo).Property(x => x.MaxSeats).IsModified = true;
+                _context.SaveChanges();
+                
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -121,3 +165,33 @@ namespace TranspotationTicketBooking.Controllers
         }
     }
 }
+
+
+/*[HttpPut("{id}")]
+        public async Task<IActionResult> PutBusInfo(string id, BusInfo busInfo)
+        {
+            if (id != busInfo.BusNo)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(busInfo).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BusInfoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }*/

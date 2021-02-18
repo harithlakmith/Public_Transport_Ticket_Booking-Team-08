@@ -9,7 +9,7 @@ namespace TranspotationTicketBooking.Models
     public class Passenger
     {
         [Key]
-        public long PId { get; set; }
+        public string PId { get; set; }
         public string Name { get; set; }
         public long Tp { get; set; }
         public string Email { get; set; }
