@@ -76,7 +76,7 @@ namespace TranspotationTicketBooking.Controllers
         // POST: api/BusInfo
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        /*[HttpPost]
         public async Task<ActionResult<BusInfo>> PostBusInfo(BusInfo busInfo)
         {
             _context.BusInfo.Add(busInfo);
@@ -97,7 +97,7 @@ namespace TranspotationTicketBooking.Controllers
             }
 
             return CreatedAtAction("GetBusInfo", new { id = busInfo.BusNo }, busInfo);
-        }
+        }*/
 
         // DELETE: api/BusInfo/5
         [HttpDelete("{id}")]

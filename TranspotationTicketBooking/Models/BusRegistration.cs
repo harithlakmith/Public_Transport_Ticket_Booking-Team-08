@@ -4,14 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace TranspotationTicketBooking.Models.Users
+namespace TranspotationTicketBooking.Models
 {
-    public class UserRegistrationModel
+    public class BusRegistration
     {
-        public string NIC { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
         public string BusNo { get; set; }
         public string DriverName { get; set; }
         public int DriverNo { get; set; }
@@ -29,8 +25,11 @@ namespace TranspotationTicketBooking.Models.Users
 
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
+        /*[DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }*/
+
+        public int Verified { get; set; }
+
     }
 }

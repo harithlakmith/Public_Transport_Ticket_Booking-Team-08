@@ -16,7 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using TranspotationTicketBooking.Models;
-using TranspotationTicketBooking.Models.Users;
+
 
 namespace TranspotationTicketBooking
 {

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using TranspotationTicketBooking.Models.Users;
 
 
 namespace TranspotationTicketBooking.Models

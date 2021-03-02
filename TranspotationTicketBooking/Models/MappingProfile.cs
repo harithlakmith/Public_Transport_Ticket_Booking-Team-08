@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using TranspotationTicketBooking.Models;
-using TranspotationTicketBooking.Models.Users;
 
 namespace TranspotationTicketBooking
 {
@@ -8,16 +7,20 @@ namespace TranspotationTicketBooking
     {
         public MappingProfile()
         {
-            CreateMap<UserRegistrationModel, User>()
+            CreateMap<AdminRegistrationModel, User>()
                .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 
-            CreateMap<UserRegistrationModel, Passenger>()
-               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FirstName))
-               .ForMember(dest => dest.Tp, opt => opt.MapFrom(src => src.PhoneNumber))
-               .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-               ;
+            CreateMap<PassengerRegistration, User>()
+               .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 
-            CreateMap<UserRegistrationModel, BusInfo>();
+
+            CreateMap<BusRegistration, User>()
+               .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
+
+            CreateMap<PassengerRegistration, Passenger>();
+
+
+            CreateMap<BusRegistration, BusInfo>();
 
         }
     }

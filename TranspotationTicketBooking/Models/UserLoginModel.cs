@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TranspotationTicketBooking.Models.Users
+namespace TranspotationTicketBooking.Models
 {
     public class UserLoginModel
     {
         [Required]
-        [EmailAddress]
+        // [EmailAddress]
         public string Email { get; set; }
         [Required]
-        [DataType(DataType.Password)]
+        //[DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

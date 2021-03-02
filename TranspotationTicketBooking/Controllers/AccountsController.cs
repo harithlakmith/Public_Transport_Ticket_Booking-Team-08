@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
-using TranspotationTicketBooking.Models.Users;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace TranspotationTicketBooking.Controllers
@@ -51,7 +51,7 @@ namespace TranspotationTicketBooking.Controllers
         }
 
         [HttpPost("PassengerRegister")]  // api/Accounts/PassengerRegister
-        public async Task<ActionResult> Register(UserRegistrationModel userModel)
+        public async Task<ActionResult> Register(PassengerRegistration userModel)
         {
             var user = _mapper.Map<User>(userModel);
             var passenger = _mapper.Map<Passenger>(userModel);
@@ -71,7 +71,7 @@ namespace TranspotationTicketBooking.Controllers
 
 
         [HttpPost("AdminRegister")]  // api/Accounts/AdminRegister
-        public async Task<ActionResult> AdminRegister(UserRegistrationModel userModel)
+        public async Task<ActionResult> AdminRegister(AdminRegistrationModel userModel)
         {
             var user = _mapper.Map<User>(userModel);
             var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -84,10 +84,10 @@ namespace TranspotationTicketBooking.Controllers
         }
 
         [HttpPost("BusControllerRegister")]  // api/Accounts/BusControllerRegister
-        public async Task<ActionResult> BusControllerRegister(UserRegistrationModel userModel)
+        public async Task<ActionResult> BusControllerRegister(BusRegistration userModel)
         {
             var user = _mapper.Map<User>(userModel);
-            var BusController = _mapper.Map<BusInfo>(userModel);
+            var businfo = _mapper.Map<BusInfo>(userModel);
 
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded)
@@ -96,12 +96,12 @@ namespace TranspotationTicketBooking.Controllers
             }
             await _userManager.AddToRoleAsync(user, "BusController");
 
-            db.BusInfo.Add(BusController);
+            db.BusInfo.Add(businfo);
             db.SaveChanges();
 
             return StatusCode(201);
         }
-        [HttpPost("Login")] // api/Accounts/Login
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginModel userModel)
         {
             var user = await _userManager.FindByEmailAsync(userModel.Email);
