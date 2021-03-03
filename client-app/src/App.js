@@ -1,67 +1,54 @@
-import React from 'react';
 import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+//import './App.css';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Pass_Info_Update from './component/pass_info_update/Pass_Info_Update';
+//import Pass_Login from './component/pass_login/Pass_Login';
+import Pass_Reg_Form from './component/pass_reg_form/Pass_Reg_Form';
+//import './component/signin/node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Home from './component/Home';
+import { render } from 'react-dom';
+import React, {Component} from 'react';
+import SignIn from './component/signin/SignIn';
+import Bus_Reg from './component/bus_reg/Bus_Reg';
 
-import Add_Route from './component/add_route/Add_Route';
-import Find_Bus from './component/find_bus/Find_Bus';
-import Test_case from './component/Test_case/Test_case';
-import Bus_List from './component/Bus_List/Bus_List';
 
+class App extends Component{
+ 
 
+ 
+render()
 
-function App() {
+  {
+
   return (
+    <BrowserRouter>
     
-    <div class="container">
-       <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
-        <a href="#" class="navbar-brand">
-            <img src="./logo.png" height="58" alt="CoolBrand"/>
-        </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div className="App" >
+     
 
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-                <a href="/home" class="nav-item nav-link active">Home</a>
-                <a href="/add-route" class="nav-item nav-link">Add Route</a>
-                
-            </div>
-            <div class="navbar-nav ml-auto">
-                <a href="#" class="nav-item nav-link">Passenger Login</a>
-                <a href="#" class="nav-item nav-link">Admin Login</a>
-            </div>
+      <div>
+        <div>
+          <Switch>
+            <Route exact path = "/" component={Home}/>
+            
+            <Route exact path = "/pass-Reg" component={Pass_Reg_Form}/>
+            <Route exact path = "/signin" component={SignIn}/>
+            <Route exact path = "/busreg" component={Bus_Reg}/>
+            
+
+          </Switch>
+          
         </div>
-    </nav>
+      </div>
 
-
-       <BrowserRouter>
-        <Switch>
-          <Route path="/add-route">
-          <Add_Route />
-          </Route>
-        
-          <Route path="/home">
-            <Find_Bus />
-          </Route>
-
-          <Route path="/test">
-          <Test_case />
-          </Route>
-
-          <Route path="/bus-list">
-          <Bus_List />
-          </Route>
-
-        </Switch>
-      </BrowserRouter>
-
-         
+      
+      
     </div>
-   
+    </BrowserRouter>
+      
   );
+  
+}
 }
 
 export default App;

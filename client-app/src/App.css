@@ -13,6 +13,11 @@
   }
 }
 
+.navbar-light{
+  background-color: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -27,6 +32,25 @@
 .App-link {
   color: #61dafb;
 }
+
+.auth-inner{
+  width: 450px;
+  margin: auto;
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all .3s;
+
+}
+
+.auth-wrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+}
+
 
 @keyframes App-logo-spin {
   from {
