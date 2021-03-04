@@ -1,7 +1,9 @@
-import logo from "./../../logo.svg";
+
 //import './Pass_Info_Update.css';
 //import Pass_Info_Update from './component/pass_info_update/Pass_Info_Update';
 import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import axios from "axios";
 
 class Pass_Info_Update extends React.Component {
 
@@ -9,13 +11,13 @@ class Pass_Info_Update extends React.Component {
         super(props)  
      
     this.handleChange = this.handleChange.bind(this);  
-    this.UpdateInfo = this.UpdateInfo.bind(this);  
-    this.UpdatePassword = this.UpdatePassword.bind(this);  
+  
+    this.UpdatePassenger = this.UpdatePassenger.bind(this);  
     
          this.state = {  
             nic:'',
-            firstname: '',  
-            lastname: '',  
+            name: '',  
+          
             email: '',  
             password: '' , 
             telephone:'',
@@ -29,14 +31,14 @@ class Pass_Info_Update extends React.Component {
     }
     
     componentDidMount() {  
-      axios.get('http://localhost:5000/Passenger/NB2021')  
+      axios.get('http://localhost:5000/Passenger/1')  
           .then(response => {  
               this.setState({ 
-                 
-                Name: response.data.DriverName,  
-                Tp: response.data.DriverNo,  
-                Email: response.data.CondName,  
-                Password : response.data.CondNo 
+                nic: response.data.NIC, 
+                name: response.data.Name,  
+                telephone: response.data.Tp,  
+                email: response.data.Email,  
+                password : response.data.Password 
                 
             });  
     
@@ -47,36 +49,23 @@ class Pass_Info_Update extends React.Component {
     } 
     
     
-    UpdatePassword(e) {  
-      debugger;  
-      e.preventDefault();  
-      const obj = {  
-          Id:this.props.match.params.id,  
-        Name: this.state.Name,  
-        RollNo: this.state.RollNo,  
-        Class: this.state.Class,  
-        Address: this.state.Address  
+   
     
-      };  
-      axios.post('http://localhost:5000/BusInfo', obj)  
-          .then(res => console.log(res.data));  
-          debugger;  
-          this.props.history.push('/Studentlist')  
-    }  
-    
-    UpdateInfo(e) {  
+    UpdatePassenger(e) {  
      // debugger;  
       e.preventDefault();  
       const obj = {  
-        BusNo:'NB2021',  
-        DriverName: this.state.DriverName,  
-        DriverNo: parseInt(this.state.DriverRegNo),  
-        CondName: this.state.ConductorName,  
-        CondNo : parseInt(this.state.ConductorRegNo) ,
-        MaxSeats: parseInt(this.state.Seats) 
+        PId: 1,
+        NIC:this.state.nic,  
+        Name: this.state.name,  
+        Tp: parseInt(this.state.telephone),  
+        Email: this.state.email,  
+        Password: this.state.password ,
+        Verified:1
+      
     
       };  
-      axios.post('http://localhost:5000/BusInfo/update/NB2021', obj)  
+      axios.post('http://localhost:5000/Passenger/update/1', obj)  
           .then(res => console.log(res.data));  
         //  debugger;  
           //this.props.history.push('/Businfo')  
@@ -108,20 +97,12 @@ render(){
                 <input
                   type="text"
                   class="form-control"
-                  name="first_name" value={this.state.firstname} onChange={this.handleChange} 
+                  name="name" value={this.state.name} onChange={this.handleChange} 
                   placeholder="First Name"
                   required="required"
                 />
               </div>
-              <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="last_name" value={this.state.lastname} onChange={this.handleChange} 
-                  placeholder="Last Name"
-                  required="required"
-                />
-              </div>
+              
             </div>
           </div>
           <div class="form-group">
@@ -146,14 +127,14 @@ render(){
             <input
               type="text"
               class="form-control"
-              name="Telephone" value={this.state.telephone} onChange={this.handleChange} 
+              name="telephone" value={this.state.telephone} onChange={this.handleChange} 
               placeholder="Telephone"
               required="required"
             />
           </div>
           <div class="form-group"></div>
           <div class="form-group">
-            <button type="Update" class="btn btn-primary btn-lg">
+            <button type="Update" onClick={this.UpdatePassenger} class="btn btn-primary btn-lg">
               Update
             </button>
           </div>

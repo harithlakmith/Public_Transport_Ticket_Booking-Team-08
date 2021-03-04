@@ -66,6 +66,7 @@ class Bus_List extends Component {
                             +'&ticketprice='+bus.TicketPrice
                             +'&arrivedtime='+Moment(bus.ArrivedTime).format('hh:mm A')
                             +'&duration='+bus.Duration
+                            +'&sid='+bus.SId
 
             return (
                 <div class="card  bg-light mb-3">

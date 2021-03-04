@@ -21,7 +21,7 @@ import axios from 'axios'
             });
           })
       }
-
+      logout() {localStorage.removeItem('user');}
       
 
     render() {
@@ -47,8 +47,11 @@ import axios from 'axios'
                             <p class="font-16 text-uppercase"></p>
                             <h1 class="hero-title mt-4 mb-4">Quickly Reserve Your<br/>Ticket with <span class="text-primary">Ticketz</span></h1>
 
-                            <p>To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine occidental</p>
-
+                            <p>During the covid-19 pandemic situation, travelling by public transport
+                                 is very difficult. Because numbers of passengers are limited according 
+                                 to the government policies. So this site will allow passengers to book their 
+                                 bus ticket via online.</p>
+                                 <button class="btn btn-primary"  onClick={this.logout}>logout</button>
                             <div class="mt-4">
                                 
                             </div>

@@ -44,7 +44,7 @@ namespace TranspotationTicketBooking.Controllers
         // PUT: api/Passenger/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        [HttpPost("update/{id}")]
         public async Task<IActionResult> PutPassenger(long id, Passenger passenger)
         {
             if (id != passenger.PId)
@@ -107,3 +107,33 @@ namespace TranspotationTicketBooking.Controllers
         }
     }
 }
+
+
+/*[HttpPut("{id}")]
+        public async Task<IActionResult> PutPassenger(long id, Passenger passenger)
+        {
+            if (id != passenger.PId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(passenger).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PassengerExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }*/

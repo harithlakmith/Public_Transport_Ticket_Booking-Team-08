@@ -25,8 +25,7 @@ class Book_Now extends Component {
     halfTicket:0,
     totalTicket:0.00,
     seats:'',
-    sid:0,
-    postTId: ''
+    sid:0
 
   };
   this.handleChange = this.handleChange.bind(this);
@@ -94,12 +93,9 @@ class Book_Now extends Component {
        
          };  
          axios.post('http://localhost:5000/Ticket', obj)  
-             .then(res => {
-               this.setState({
-              postTId: res.data.RId
-            }); 
-          }) 
-          
+             .then(res => console.log(res.data));  
+           //  debugger;  
+             //this.props.history.push('/Businfo')  
        }  
        
 
@@ -141,7 +137,12 @@ render(){
                     <tr>Arriving time: {this.state.ArrivedTime}</tr>
                     <br></br>
                     <tr>
-                      
+                      <img
+                        src="qr_code.jpg"
+                        alt="QR_code"
+                        width="100"
+                        height="100"
+                      />
                     </tr>
                   </table>
                 </div>

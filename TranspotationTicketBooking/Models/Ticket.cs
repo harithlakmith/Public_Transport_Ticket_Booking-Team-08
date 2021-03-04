@@ -19,6 +19,6 @@ namespace TranspotationTicketBooking.Models
         public int NoOfSeats { get; set; }
         public int PStatus { get; set; }
         public DateTime Date { get; set; }
-
+        public float price { get; set; }
     }
 }
