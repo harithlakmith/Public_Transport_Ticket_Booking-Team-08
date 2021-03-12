@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 //import './css/bootstrap.min.css';
 //import './css/tooplate-style.css';
 import './Find_Bus.css';
+import {Redirect, withRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import welcome_text from './welcome-text/welcome_text';
 import axios from 'axios'
@@ -21,10 +22,19 @@ import axios from 'axios'
             });
           })
       }
-      logout() {localStorage.removeItem('user');}
+    
       
 
     render() {
+
+        if (JSON.parse(localStorage.getItem('role'))=='BusController'){
+            return <Redirect to={'/bus-dashboard'} />
+        }else if (JSON.parse(localStorage.getItem('role'))=='Administrator'){
+            return <Redirect to={'/admin-dashboard'} />
+        }
+
+
+
         const { towns } = this.state
         const townList = towns.length ? (
           towns.map(town => {
@@ -51,7 +61,7 @@ import axios from 'axios'
                                  is very difficult. Because numbers of passengers are limited according 
                                  to the government policies. So this site will allow passengers to book their 
                                  bus ticket via online.</p>
-                                 <button class="btn btn-primary"  onClick={this.logout}>logout</button>
+                                 
                             <div class="mt-4">
                                 
                             </div>
@@ -97,4 +107,4 @@ import axios from 'axios'
 }
 
 
-export default Find_Bus
+export default withRouter(Find_Bus);

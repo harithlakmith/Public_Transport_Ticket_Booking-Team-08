@@ -42,10 +42,10 @@ render(){
         <br></br>
         <div class="row">
           <div class="col-lg-1">
-             <a href="/" class="btn btn-primary m-2">Show Bus</a>
+             <a href="/show-buses" class="btn btn-primary m-2">Show Bus</a>
           </div>
           <div class="col-lg-1">
-             <a href="/add-route" class="btn btn-primary m-2">Add Bus</a>
+             <a href="/bus-reg" class="btn btn-primary m-2">Add Bus</a>
           </div> 
         </div>
        

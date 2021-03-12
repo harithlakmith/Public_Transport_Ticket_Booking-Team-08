@@ -2,33 +2,44 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Select_Route.css";
 import React, { Component } from 'react'
 import axios from "axios";
+import Moment,{ now } from "moment";
+import { withRouter, useParams} from "react-router-dom";
 
 class Select_Route extends React.Component {
   constructor(props) {
     super(props);
+   
     this.state = {
-      busNo: "",
+      busNo: JSON.parse(localStorage.getItem('userInfo')).BusNo,
       route: 0,
-      date: 0,
-      time: 0,
+      date: undefined,
+      time: undefined,
       routes: [],
+      Seats: 0,
+      test:undefined
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.SelectRoute = this.SelectRoute.bind(this);
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value  });
   };
 
   SelectRoute = () => {
+
+    var value = new URLSearchParams(this.props.location.search);
+    var s= value.get('s');
+
     axios
-      .post("", {
+      .post("http://localhost:5000/Session", {
         BusNo: this.state.busNo,
         RId: parseInt(this.state.route),
-        Date: parseInt(this.state.date),
-        time: parseInt(this.state.time),
-      })
+        Date: this.state.date,
+        StartTime: this.state.date+'T'+this.state.time+':00',
+        Seats: parseInt(s),
+      }) 
       .then((json) => {
         console.log(json.data);
       });
@@ -43,11 +54,13 @@ class Select_Route extends React.Component {
     });
   }
 
+  
+
   render() {
-    const { routes } = this.state;
+    const { routes, busNo } = this.state;
     const routeList = routes.length ? (
       routes.map((route) => {
-        return <option value={route.RId}>{route.RNum}:{route.StartHolt}-{route.StopHolt}</option>;
+        return <option value={route.RId}>{route.RNum} : {route.StartHolt}-{route.StopHolt}</option>;
       })
     ) : (
       <div className="center">No Routes available</div>
@@ -68,13 +81,8 @@ class Select_Route extends React.Component {
               <div class="row">
                 <div class="col-lg-4 ; h4 ">My Bus</div>
                 <div class="col-lg-5">
-                  <input
-                    type="text"
-                    name="busNo"
-                    onChange={this.handleChange}
-                    value={this.state.busNo}
-                    required="required"
-                  ></input>
+                <p>{busNo}</p>
+                  
                 </div>
               </div>
 
@@ -121,7 +129,7 @@ class Select_Route extends React.Component {
                 <div class="col-lg-2">
                   <input
                     type="time"
-                    pattern="[0-9]*"
+                   
                     name="time"
                     onChange={this.handleChange}
                     value={this.state.time}
@@ -149,4 +157,4 @@ class Select_Route extends React.Component {
     );
   }
 }
-export default Select_Route;
+export default withRouter(Select_Route);

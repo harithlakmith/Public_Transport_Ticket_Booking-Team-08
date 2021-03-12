@@ -22,6 +22,9 @@ import Pass_Info_Update from './component/pass_info_update/Pass_Info_Update';
 import SignIn from './component/sign_in/SignIn';
 import Nav_Bar from './component/nav_bar/Nav_Bar';
 import Pass_Reg from './component/pass_reg/Pass_Reg';
+import Bus_Dash from './component/bus_dash/Bus_Dash';
+import Show_Bus from './component/showbus/Show_Bus';
+import CheckoutForm from './component/checkout/checkout';
 
 class App extends Component {
   constructor(props) {
@@ -78,12 +81,7 @@ render(){
                     <i class="mdi mdi-menu"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
-                        <li class="nav-item active">
-                            <a href="/home" class="nav-link">Home</a>
-                        </li>
-                        
-                    </ul>
+                   
                   
            {jwttoken ? (
             <div className="navbar-nav ml-auto">
@@ -93,12 +91,12 @@ render(){
 
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                 aria-haspopup="true" aria-expanded="false">Hi, {userInfo.FirstName}</a>
+                 aria-haspopup="true" aria-expanded="false">Hi, {userInfo.FirstName}{userInfo.BusNo}</a>
                   <div class="dropdown-menu">
                       <a class="dropdown-item" href="#">My profile</a>
                       <a class="dropdown-item" href="#">Setting</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="/sign-in" onClick={this.logOut}>Log Out</a>
+                      <a class="dropdown-item" href="/home" onClick={this.logOut}>Log Out</a>
                   </div>
               </li>
 
@@ -177,6 +175,23 @@ render(){
           <Route path="/passenger-signup" component={Pass_Reg} >
           <Pass_Reg />
           </Route>
+
+          <Route path="/bus-dashboard" component={Bus_Dash} >
+          <Bus_Dash />
+          </Route>
+
+          <Route path="/admin-dashboard" component={Admin_Dash} >
+          <Admin_Dash />
+          </Route>
+
+          <Route path="/show-buses" component={Show_Bus} >
+          <Show_Bus />
+          </Route>
+
+          <Route path="/c" component={CheckoutForm} >
+          <CheckoutForm />
+          </Route>
+
 
         </Switch>
       </BrowserRouter>

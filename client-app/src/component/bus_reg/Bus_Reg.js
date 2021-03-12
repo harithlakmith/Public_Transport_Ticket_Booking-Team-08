@@ -27,7 +27,7 @@ class Bus_Reg extends React.Component {
 
   BusReg = () => {
     axios
-      .post("http://localhost:5000/BusInfo", {
+      .post("http://localhost:5000/api/Accounts/BusControllerRegister", {
         BusNo:this.state.busNo,
         DriverName: this.state.dName,
         DriverNo: parseInt(this.state.dNo),
@@ -36,7 +36,8 @@ class Bus_Reg extends React.Component {
         MaxSeats: parseInt(this.state.seatNo),
         Email: this.state.email,
         Password: this.state.password,
-        Verified:1
+        ConfirmPassword:this.state.password
+        
       })
       .then((json) => {
         console.log(json.data);

@@ -71,8 +71,10 @@ class SignIn extends Component{
                     this.props.history.push("/home")
                   }else if(role=='Administrator'){
                     this.props.history.push("/admin-dash")
+                  }else if(role=='BusController'){
+                    this.props.history.push("/bus-dashboard")
                   };
-                
+                //  this.props.history.push("/home")
                 window.location.reload();
               },
               error => {
@@ -118,7 +120,7 @@ render(){
       <div className="container p-1">
         <div className="box">
           <h1>
-            <u>Passenger Login</u>
+            <u> Login</u>
           </h1>
              
       
@@ -150,7 +152,7 @@ render(){
                 {this.state.loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
-                <span>Login</span>
+                <span>&nbsp;Login</span>
               </button>
             </div>
 

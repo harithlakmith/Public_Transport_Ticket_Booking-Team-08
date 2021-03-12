@@ -17,7 +17,17 @@ class Add_Route extends React.Component {
       fullTime: 0,
       fullPrice: 0,
       fullDistance: 0,
-      postRoute:''
+      postRoute:0,
+      halt:'',
+      haltId:'',
+      price:'',
+      time:'',
+      dist:'',
+      nextHaltId:0,
+      halts:[],
+      flag:false,
+      loading: false,
+      message: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.AddRoute = this.AddRoute.bind(this);
@@ -44,14 +54,92 @@ class Add_Route extends React.Component {
       .then(res => {
         this.setState({
           postRoute: res.data.RId
-        });
+        });this.haltListRefresh();
       });
+
+     
   };
+
+  AddRouteRow = () => {
+    //event.preventDefault();
+
+    axios
+      .post("http://localhost:5000/RouteInfo", {
+      
+        RId: parseInt(this.state.postRoute),
+        HoltName: this.state.halt,
+        HoltId:parseInt(this.state.nextHaltId)+1,
+        Price: parseInt(this.state.price),
+        Time: parseFloat(this.state.time),
+        Distance: parseInt(this.state.dist),
+       
+      })
+      .then(res => {
+        this.setState({
+          nextHaltId: res.data.HoltId,
+          halt:'',
+          time:'',
+          price:'',
+          dist:''
+        });
+        this.haltListRefresh();
+      });
+     
+  };
+
+  haltListRefresh(){
+    axios.get('http://localhost:5000/RouteInfo/'+ this.state.postRoute)
+    .then(res => {
+      
+      this.setState({
+        halts: res.data,
+        flag:true
+      });
+    },error => {
+      const resMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      this.setState({
+        loading: false,
+        message: resMessage,
+        flag:false
+      });
+    })
+
+  };
+
+  componentDidMount(){
+    this.haltListRefresh();
+  }
+
 
   render() {
     if (JSON.parse(localStorage.getItem('role'))!='Administrator'){
       return <Redirect to={'/sign-in'} />
     }
+
+    const { halts, flag } = this.state
+    const haltList = halts.length ? (
+      halts.map(halt => {
+        this.state.nextHaltId = halt.HoltId;
+        return (
+            
+          <tr>
+            <td>{halt.HoltName}</td>
+            <td>{halt.Price}</td>
+            <td>{halt.Time}</td>
+            <td>{halt.Distance}</td>
+          </tr>
+        )
+      })
+    ) : (
+      <div className="center">No Halts available</div>
+    );
+
     return (
       <div>
         <div class="container p-1">
@@ -124,7 +212,7 @@ class Add_Route extends React.Component {
                       type="text"
                       pattern="[0-9]*"
                       class="form-control"
-                      name=""
+                      name="fullPrice"
                       placeholder="Full Price"
                       onChange={this.handleChange}
                       value={this.state.fullPrice}
@@ -133,6 +221,7 @@ class Add_Route extends React.Component {
                   </div>
                 </div>
               </div>
+              
               <div class="box-bo">
                 <div class="row"></div>
                 <br></br>
@@ -174,7 +263,15 @@ class Add_Route extends React.Component {
             </div>
             <br></br>
 
-            <div class="col-6"></div>
+            <div class="col-6">
+              <div class="form-group">
+                  <button
+                    type="submit"
+                    onClick={this.AddRoute}
+                    class="btn btn-primary btn-lg" hidden={flag}>
+                    Register route
+                  </button>
+                </div></div>
 
             <hr />
 
@@ -190,60 +287,47 @@ class Add_Route extends React.Component {
               </div>
             </div>
 
-            <div class="row">
-              <div class="box-box1"></div>
-              <div class="box-bo2">
-                <table class="table table-hover table-info">
-                  <thead>
-                    <tr class="bg-info">
-                      <th scope="col-lg-3">Halt</th>
-                      <th scope="col-lg-3">Price</th>
-                      <th scope="col-lg-3">Time</th>
-                      <th scope="col-lg-3">Distance</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="box-bo4"></div>
-              <div class="box-bo3">
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg">
-                    Add
-                  </button>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg">
-                    Edit
-                  </button>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg">
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
+          {flag?(
+             <div class="row">
+             <div class="col-lg-12">
+             <table class="table table-hover">
+               <thead>
+                 <tr>
+                   <th scope="col">Halt</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">Time</th>
+                   <th scope="col">Distance</th>
+                   <th scope="col">Action</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 {haltList}
+                 <tr>
+                   <td><input class="form-control" name="halt" type="text" onChange={this.handleChange} ></input></td>
+                   <td><input class="form-control" name="price" type="text" onChange={this.handleChange} ></input></td>
+                   <td><input class="form-control" name="time" type="text" onChange={this.handleChange}></input></td>
+                   <td><input class="form-control" name="dist" type="text" onChange={this.handleChange}></input></td>
+                   <td><button type="submit" onClick={this.AddRouteRow} class="btn btn-primary btn-sm" >
+                     Add
+                   </button></td>
+                 </tr>
+               </tbody>
+             </table>
+ 
+             </div>
+           </div>
+ 
+          ):(
+            <p></p>
+          )}
+
+         
+
             <br></br>
             <div class="row">
               <div class="box-box1"></div>
               <div class="box-bo1">
-                <div class="form-group">
-                  <button
-                    type="submit"
-                    onClick={this.AddRoute}
-                    class="btn btn-primary btn-lg"
-                  >
-                    Register route
-                  </button>
-                </div>
+               
               </div>
             </div>
             <div class="hint-text">

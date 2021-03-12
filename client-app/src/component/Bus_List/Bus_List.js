@@ -7,6 +7,7 @@ import { RouteComponentProps, BrowserRouter, Switch, Route, Link, useLocation, u
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { RichText, Date } from 'prismic-reactjs';
 import Moment from 'moment';
+import ContentLoader from "react-content-loader"
 //import location  from 'react-router';
 
 
@@ -14,7 +15,8 @@ class Bus_List extends Component {
 
 
     state = {
-      buses: []
+      buses: [],
+      load:true
        
      };   
       
@@ -34,7 +36,13 @@ class Bus_List extends Component {
     .then(res => {
       console.log(res);
       this.setState({
-        buses: res.data
+        buses: res.data,
+        load:false
+      });
+    },error=>{
+      this.setState({
+        
+        load:false
       });
     })
     }
@@ -50,7 +58,7 @@ class Bus_List extends Component {
     
    
 
-        const { buses } = this.state
+        const { buses, load } = this.state
         const { dateSearch } = this.state
 
         
@@ -114,11 +122,34 @@ class Bus_List extends Component {
                         </div>
                     </div>
                 </div>
-            <div class="row justify-content-center">
-              <div class="col-12 ">
-              {buslist}
-              </div>
-            </div>
+            {load?(
+                     <ContentLoader 
+                     speed={2}
+                     width={1476}
+                     height={150}
+                     viewBox="0 0 1476 150"
+                     backgroundColor="#f3f3f3"
+                     foregroundColor="#ecebeb"
+                     
+                   >
+                     <rect x="98" y="16" rx="3" ry="3" width="300" height="13" /> 
+                     <rect x="100" y="46" rx="3" ry="3" width="300" height="12" /> 
+                     <rect x="4" y="89" rx="3" ry="3" width="1000" height="12" /> 
+                     <rect x="4" y="113" rx="3" ry="3" width="1000" height="12" /> 
+                     <rect x="3" y="138" rx="3" ry="3" width="1000" height="12" /> 
+                     <circle cx="38" cy="38" r="38" />
+                   </ContentLoader>
+
+            ):(
+                  
+               <div class="row justify-content-center">
+               <div class="col-12 ">
+               {buslist}
+               </div>
+           </div>
+            )}
+
+             
           </div>
         </section>
 
