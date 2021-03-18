@@ -16,7 +16,7 @@ namespace TranspotationTicketBooking.Models
         [Required(ErrorMessage = "Password is required")]
         public string NewPassword { get; set; }
 
-        /*[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }*/
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
     }
 }
