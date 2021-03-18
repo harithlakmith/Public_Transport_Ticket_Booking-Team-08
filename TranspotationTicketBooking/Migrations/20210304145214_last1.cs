@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TranspotationTicketBooking.Migrations
 {
-    public partial class bahasuru01 : Migration
+    public partial class last1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -116,8 +116,6 @@ namespace TranspotationTicketBooking.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NIC = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BusNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PId = table.Column<long>(type: "bigint", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -192,10 +190,10 @@ namespace TranspotationTicketBooking.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "6d3dde6c-c4fe-42c1-9279-032d7d127751", "211c7baa-5776-4823-9c16-39d62f95410d", "Visitor", "VISITOR" },
-                    { "5935a28b-5333-4dfe-9c51-50ad33135d05", "3692087e-e2d9-48b1-93fe-68f43c99afe9", "Passenger", "PASSENGER" },
-                    { "06f1dbe0-dfe7-4a91-b89c-a6df982c3419", "e0258544-c5fa-4450-8fee-f9e434895c16", "BusController", "BUSCONTROLLER" },
-                    { "f2d3cc26-b90a-44b9-b545-33254068ec15", "a8042d8e-7338-44ab-9493-87df0b930d0b", "Administrator", "ADMINISTRATOR" }
+                    { "baee82d8-bf3c-498c-b73c-033b349d6f4b", "6aa93504-8c0e-46fb-89a4-f05ad93c2784", "Visitor", "VISITOR" },
+                    { "a1829897-31bd-4175-955a-adebc5f7a637", "ebb999ce-29c1-47da-a1b8-9524c4809832", "Passenger", "PASSENGER" },
+                    { "95c0e24e-8963-4286-abab-fcec520a09a4", "d1c034ab-83d7-4bb4-95a4-e6d4e6ecf4b6", "BusController", "BUSCONTROLLER" },
+                    { "c7b6ccf7-60ea-4c2b-95b0-6c6f9aa6a81c", "770c6333-8b7d-4941-9693-918b2fd0ebee", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(

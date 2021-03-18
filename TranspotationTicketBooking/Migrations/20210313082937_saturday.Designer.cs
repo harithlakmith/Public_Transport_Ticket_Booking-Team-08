@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TranspotationTicketBooking.Models;
 
 namespace TranspotationTicketBooking.Migrations
 {
     [DbContext(typeof(TicketBookingDBContext))]
-    partial class TicketBookingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210313082937_saturday")]
+    partial class saturday
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,22 +42,22 @@ namespace TranspotationTicketBooking.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1d515c75-ea84-402c-9f99-d69a10fa6e18",
-                            ConcurrencyStamp = "6c4fb945-2b25-49d4-9d58-87482fc544bc",
+                            Id = "a4b09852-1ebe-42d1-af08-ba1cb9b008c6",
+                            ConcurrencyStamp = "bd3e9608-7e10-4822-a72d-ce56947f56bf",
                             Name = "Passenger",
                             NormalizedName = "PASSENGER"
                         },
                         new
                         {
-                            Id = "35b7a21a-e9bb-4c4b-9e15-1a4efaa7a5f6",
-                            ConcurrencyStamp = "bc320a50-c09b-400c-904d-71e95c06576e",
+                            Id = "1bc2c583-d566-4d5f-9fe7-f9f66107b688",
+                            ConcurrencyStamp = "853dd597-92aa-4e08-a104-450c4c8330db",
                             Name = "BusController",
                             NormalizedName = "BUSCONTROLLER"
                         },
                         new
                         {
-                            Id = "99266620-5f56-4654-bf3b-a17aff424bc3",
-                            ConcurrencyStamp = "fb6ba838-5546-4617-94db-9d6581ef1753",
+                            Id = "8018dcfd-623e-4910-a616-d8465a424153",
+                            ConcurrencyStamp = "249b1e22-f1b6-4374-951d-c4a9488d3c5a",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -281,9 +283,6 @@ namespace TranspotationTicketBooking.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("BusNo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");

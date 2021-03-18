@@ -22,6 +22,12 @@ namespace TranspotationTicketBooking
 
             CreateMap<BusRegistration, BusInfo>();
 
+           // CreateMap<PassengerUpdate, User>();
+              //.ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
+
+            CreateMap<PassengerUpdate, Passenger>();
+
+
         }
     }
 }

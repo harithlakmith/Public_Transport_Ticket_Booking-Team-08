@@ -10,8 +10,8 @@ using TranspotationTicketBooking.Models;
 namespace TranspotationTicketBooking.Migrations
 {
     [DbContext(typeof(TicketBookingDBContext))]
-    [Migration("20210217061611_bahasuru01")]
-    partial class bahasuru01
+    [Migration("20210318045002_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,29 +42,22 @@ namespace TranspotationTicketBooking.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6d3dde6c-c4fe-42c1-9279-032d7d127751",
-                            ConcurrencyStamp = "211c7baa-5776-4823-9c16-39d62f95410d",
-                            Name = "Visitor",
-                            NormalizedName = "VISITOR"
-                        },
-                        new
-                        {
-                            Id = "5935a28b-5333-4dfe-9c51-50ad33135d05",
-                            ConcurrencyStamp = "3692087e-e2d9-48b1-93fe-68f43c99afe9",
+                            Id = "1d515c75-ea84-402c-9f99-d69a10fa6e18",
+                            ConcurrencyStamp = "6c4fb945-2b25-49d4-9d58-87482fc544bc",
                             Name = "Passenger",
                             NormalizedName = "PASSENGER"
                         },
                         new
                         {
-                            Id = "06f1dbe0-dfe7-4a91-b89c-a6df982c3419",
-                            ConcurrencyStamp = "e0258544-c5fa-4450-8fee-f9e434895c16",
+                            Id = "35b7a21a-e9bb-4c4b-9e15-1a4efaa7a5f6",
+                            ConcurrencyStamp = "bc320a50-c09b-400c-904d-71e95c06576e",
                             Name = "BusController",
                             NormalizedName = "BUSCONTROLLER"
                         },
                         new
                         {
-                            Id = "f2d3cc26-b90a-44b9-b545-33254068ec15",
-                            ConcurrencyStamp = "a8042d8e-7338-44ab-9493-87df0b930d0b",
+                            Id = "99266620-5f56-4654-bf3b-a17aff424bc3",
+                            ConcurrencyStamp = "fb6ba838-5546-4617-94db-9d6581ef1753",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -129,14 +122,17 @@ namespace TranspotationTicketBooking.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tp")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Tp")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -280,7 +276,7 @@ namespace TranspotationTicketBooking.Migrations
                     b.ToTable("Ticket");
                 });
 
-            modelBuilder.Entity("TranspotationTicketBooking.Models.Users.User", b =>
+            modelBuilder.Entity("TranspotationTicketBooking.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -321,9 +317,6 @@ namespace TranspotationTicketBooking.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -349,19 +342,19 @@ namespace TranspotationTicketBooking.Migrations
 
             modelBuilder.Entity("TranspotationTicketBooking.Models.BusInfo", b =>
                 {
-                    b.HasOne("TranspotationTicketBooking.Models.Users.User", null)
+                    b.HasOne("TranspotationTicketBooking.Models.User", null)
                         .WithMany("BusInfos")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TranspotationTicketBooking.Models.Passenger", b =>
                 {
-                    b.HasOne("TranspotationTicketBooking.Models.Users.User", null)
+                    b.HasOne("TranspotationTicketBooking.Models.User", null)
                         .WithMany("Passengers")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("TranspotationTicketBooking.Models.Users.User", b =>
+            modelBuilder.Entity("TranspotationTicketBooking.Models.User", b =>
                 {
                     b.Navigation("BusInfos");
 

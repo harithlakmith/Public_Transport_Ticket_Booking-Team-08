@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace TranspotationTicketBooking.Controllers
 {
@@ -101,22 +102,123 @@ namespace TranspotationTicketBooking.Controllers
 
             return StatusCode(201);
         }
-        [HttpPost("Login")]
+        [HttpPost("Login")]  // api/Accounts/Login
         public async Task<IActionResult> Login(UserLoginModel userModel)
         {
             var user = await _userManager.FindByEmailAsync(userModel.Email);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, userModel.Password))
             {
+                var roles = await _userManager.GetRolesAsync(user);//****
                 var signingCredentials = GetSigningCredentials();
                 var claims = GetClaims(user);
                 var tokenOptions = GenerateTokenOptions(signingCredentials, await claims);
-                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(token);
+                /*var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                return Ok(token);*/
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(tokenOptions),
+                    role = roles,
+                    data = user
+                });
             }
             return Unauthorized("Invalid Authentication");
 
         }
+
+       
+
+        [HttpPost("PassUpdate")]  // api/Accounts/PassUpdate
+        public async Task<IActionResult>UpdatePassenger(PassengerUpdate userModel)
+        {
+            var user = await _userManager.FindByEmailAsync(userModel.Email);
+            var passenger = db.Passenger.Where(x => x.Email == userModel.Email).FirstOrDefault(); ;
+            //var passenger = await db.Passenger.FindAsync(userModel.Email);
+            // var passenger = _mapper.Map<Passenger>(userModel);
+
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
+            
+            user.FirstName = userModel.FirstName;
+            user.LastName = userModel.LastName;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user , userModel.Password);
+            passenger.FirstName = userModel.FirstName;
+            passenger.LastName = userModel.LastName;
+            passenger.Tp = userModel.Tp;
+            passenger.Email = userModel.Email;
+
+            //var user = _mapper.Map<User>(userModel);
+
+            var result = await _userManager.UpdateAsync(user);
+            //var result1 =db.Passenger.Update((Passenger)passenger);
+
+            if (!result.Succeeded)
+            {
+                return Ok(result.Errors);
+            }
+            db.Passenger.Update(passenger);
+            //db.Passenger.Add(passenger);
+            db.SaveChanges();
+
+            return StatusCode(201);
+        }
+
+        [HttpPost("BusInfoUpdate")]  // api/Accounts/BusInfoUpdate
+        public async Task<IActionResult> UpdateBus(BusInfoUpdate userModel)
+        {
+            
+            var bus = db.BusInfo.Where(x => x.BusNo == userModel.BusNo).FirstOrDefault(); 
+            
+            if (bus == null)
+            {
+                return NotFound();
+            }
+
+
+            bus.CondName = userModel.CondName;
+            bus.CondNo = userModel.CondNo;
+            bus.DriverName = userModel.DriverName;
+            bus.DriverNo = userModel.DriverNo;
+            bus.MaxSeats = userModel.MaxSeats;
+
+           
+
+            db.BusInfo.Update(bus);
+            
+            db.SaveChanges();
+
+            return StatusCode(201);
+        }
+
+        [HttpPost("PasswordUpdate")]  // api/Accounts/PasswordUpdate
+        public async Task<IActionResult> UpdatePassword(BusPasswordChange userModel)
+        {
+            //var user = await _userManager.FindByEmailAsync(userModel.BusNo);
+            var user = db.Users.Where(x => x.BusNo == userModel.BusNo).FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, userModel.NewPassword);
+           
+
+            var result = await _userManager.UpdateAsync(user);
+           
+            if (!result.Succeeded)
+            {
+                return Ok(result.Errors);
+            }
+           
+            return StatusCode(201);
+        }
+
+
 
         private SigningCredentials GetSigningCredentials()
         {

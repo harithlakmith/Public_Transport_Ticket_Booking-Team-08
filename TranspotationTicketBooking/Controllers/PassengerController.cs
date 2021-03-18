@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TranspotationTicketBooking.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace TranspotationTicketBooking.Controllers
 {
+    //[Authorize(Roles = "Passenger , Administrator")]
     [Route("[controller]")]
     [ApiController]
     public class PassengerController : ControllerBase
     {
         private readonly TicketBookingDBContext _context;
+       
+
 
         public PassengerController(TicketBookingDBContext context)
         {
             _context = context;
+            
         }
 
         // GET: api/Passenger
@@ -44,9 +51,10 @@ namespace TranspotationTicketBooking.Controllers
         // PUT: api/Passenger/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> PutPassenger(long id, Passenger passenger)
         {
+            var user = _mapper.Map<User>(passenger);
             if (id != passenger.PId)
             {
                 return BadRequest();
@@ -70,8 +78,12 @@ namespace TranspotationTicketBooking.Controllers
                 }
             }
 
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
             return NoContent();
-        }
+
+        }*/
 
         // POST: api/Passenger
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
