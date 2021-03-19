@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TranspotationTicketBooking.Controllers
 {
-    //[Authorize(Roles = "Passenger , Administrator")]
+    [Authorize(Roles = "Passenger , Administrator")]
     [Route("[controller]")]
     [ApiController]
     public class PassengerController : ControllerBase
@@ -35,10 +35,10 @@ namespace TranspotationTicketBooking.Controllers
         }
 
         // GET: api/Passenger/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Passenger>> GetPassenger(long id)
+        [HttpGet("{Email}")]
+        public ActionResult<Passenger> GetPassenger(string Email)
         {
-            var passenger = await _context.Passenger.FindAsync(id);
+            var passenger = _context.Passenger.Where(x => x.Email == Email).FirstOrDefault(); ;
 
             if (passenger == null)
             {

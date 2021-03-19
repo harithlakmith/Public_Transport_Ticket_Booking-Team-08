@@ -46,6 +46,7 @@ namespace TranspotationTicketBooking
             options.UseSqlServer(Configuration.GetConnectionString("Conn")));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TicketBookingDBContext>();
             
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;

@@ -132,7 +132,7 @@ namespace TranspotationTicketBooking.Controllers
         public async Task<IActionResult>UpdatePassenger(PassengerUpdate userModel)
         {
             var user = await _userManager.FindByEmailAsync(userModel.Email);
-            var passenger = db.Passenger.Where(x => x.Email == userModel.Email).FirstOrDefault(); ;
+            var passenger = db.Passenger.Where(x => x.Email == userModel.Email).FirstOrDefault(); 
             //var passenger = await db.Passenger.FindAsync(userModel.Email);
             // var passenger = _mapper.Map<Passenger>(userModel);
 
@@ -141,8 +141,8 @@ namespace TranspotationTicketBooking.Controllers
             {
                 return NotFound();
             }
-            
-            
+            //_mapper.Map<Passenger>(userModel);
+
             user.FirstName = userModel.FirstName;
             user.LastName = userModel.LastName;
             user.PasswordHash = _userManager.PasswordHasher.HashPassword(user , userModel.Password);
