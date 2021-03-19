@@ -1,6 +1,7 @@
 import React, {Component}from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch,Redirect,Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode'
@@ -24,7 +25,9 @@ import Nav_Bar from './component/nav_bar/Nav_Bar';
 import Pass_Reg from './component/pass_reg/Pass_Reg';
 import Bus_Dash from './component/bus_dash/Bus_Dash';
 import Show_Bus from './component/showbus/Show_Bus';
-import CheckoutForm from './component/checkout/checkout';
+import Check_Out from './component/checkout/Check_Out';
+import checkout from './component/checkout/checkout';
+
 
 class App extends Component {
   constructor(props) {
@@ -188,8 +191,12 @@ render(){
           <Show_Bus />
           </Route>
 
-          <Route path="/c" component={CheckoutForm} >
-          <CheckoutForm />
+          <Route path="/checkout" >
+          <Check_Out />
+          </Route>
+
+          <Route path="/check" component={checkout}>
+         
           </Route>
 
 

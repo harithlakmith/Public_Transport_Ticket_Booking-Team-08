@@ -101,14 +101,14 @@ componentDidMount(){
                 <div class="col-lg-4 ; h5 ">
                   <label>Seats</label>
                 </div>
-                <div class="col-lg-5; h5">{MaxSeats}</div>
+                <div class="col-lg-5; h5"><h5>{MaxSeats}</h5></div>
               </div>
 
               <div class="form-group row">
-                <div class="col-lg-4 ; h5 ">
+                <div class="col-lg-4  ">
                   <label>Driver Number</label>
                 </div>
-                <div class="col-lg-5; h5">{DriverNo}</div>
+                <div class="col-lg-5">{DriverNo}</div>
               </div>
               <div class="form-group row">
                 <div class="col-lg-4 ; h5 ">

@@ -26,7 +26,8 @@ class Book_Now extends Component {
     totalTicket:0.00,
     seats:'',
     sid:0,
-    postTId: ''
+    postTId: '',
+    
 
   };
   this.handleChange = this.handleChange.bind(this);
@@ -58,7 +59,7 @@ class Book_Now extends Component {
     this.intervalID = setInterval(
       () => this.ticketTot(),
       1000
-    );
+    ); 
 
     //const value = queryString.parse(this.props.location.search);
     const value = new URLSearchParams(this.props.location.search)
@@ -82,13 +83,13 @@ class Book_Now extends Component {
          e.preventDefault();  
          const obj = {  
            SId:parseInt(this.state.sid),  
-           From: 1,  
+           From:" 1",  
            FromHalt:this.state.fromHolt,  
-           To: 1,  
+           To: "1",  
            ToHalt :this.state.toHolt,
            PId:1,
            NoOfSeats:parseInt(this.state.seats),
-           PStatus:1,
+           PStatus:0,
            Price:parseFloat(this.state.totalTicket),
            Date:Moment(Date().toLocaleString()).format('YYYY-MM-DD')
        
@@ -96,9 +97,20 @@ class Book_Now extends Component {
          axios.post('http://localhost:5000/Ticket', obj)  
              .then(res => {
                this.setState({
-              postTId: res.data.RId
-            }); 
-          }) 
+                              postTId: res.data.id
+                             }); 
+
+                            
+
+          }).catch(e => console.error(e)); 
+
+          fetch('http://localhost/stripe/checkout.php', { method: 'POST', redirect: 'follow'})
+                              .then(response => {
+                                  // HTTP 301 response
+                              })
+                              .catch(function(err) {
+                                  console.info(err);
+                              });
           
        }  
        

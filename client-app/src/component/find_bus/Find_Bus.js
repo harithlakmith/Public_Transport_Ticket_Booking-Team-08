@@ -12,7 +12,7 @@ import axios from 'axios'
  class Find_Bus extends Component {
     state = {
         towns: []
-      }
+      } 
     componentDidMount(){
         axios.get('http://localhost:5000/RouteInfo/townlist')
           .then(res => {
@@ -20,7 +20,7 @@ import axios from 'axios'
             this.setState({
               towns: res.data
             });
-          })
+          }).catch(e => console.error(e))
       }
     
       
