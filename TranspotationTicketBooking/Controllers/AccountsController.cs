@@ -126,8 +126,8 @@ namespace TranspotationTicketBooking.Controllers
 
         }
 
-       
 
+        [Authorize(Roles = "Passenger , Administrator")]
         [HttpPost("PassUpdate")]  // api/Accounts/PassUpdate
         public async Task<IActionResult>UpdatePassenger(PassengerUpdate userModel)
         {
@@ -167,6 +167,7 @@ namespace TranspotationTicketBooking.Controllers
             return StatusCode(201);
         }
 
+        [Authorize(Roles = "BusController , Administrator")]
         [HttpPost("BusInfoUpdate")]  // api/Accounts/BusInfoUpdate
         public async Task<IActionResult> UpdateBus(BusInfoUpdate userModel)
         {
@@ -194,6 +195,7 @@ namespace TranspotationTicketBooking.Controllers
             return StatusCode(201);
         }
 
+        [Authorize(Roles = "BusController , Administrator")]
         [HttpPost("PasswordUpdate")]  // api/Accounts/PasswordUpdate
         public async Task<IActionResult> UpdatePassword(BusPasswordChange userModel)
         {

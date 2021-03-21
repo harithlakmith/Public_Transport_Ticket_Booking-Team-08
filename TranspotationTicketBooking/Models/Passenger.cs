@@ -18,6 +18,8 @@ namespace TranspotationTicketBooking.Models
         //public string Password { get; set; }
         public int Verified { get; set; }
         public string Token { get; set; }
+
+        public User User { get; set; }
         
     }
 }

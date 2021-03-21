@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using TranspotationTicketBooking.Models;
+using Stripe;
+using Newtonsoft.Json;
 
 
 namespace TranspotationTicketBooking
@@ -90,6 +92,9 @@ namespace TranspotationTicketBooking
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = "sk_test_51IWE6DDsAHRSZHe7xUPgsFLD9KoIyjycQGM5J3oQMKvoOIO9gMNxYrkU31OYhxvc9Yb3O7sndEN14oADawqZIACY00YZLAoUT5";
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

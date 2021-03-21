@@ -13,6 +13,7 @@ namespace TranspotationTicketBooking.Models
         public string LastName { get; set; }
         public string NIC { get; set; }
         public string BusNo { get; set; }
+        public int Tp { get; set; }
 
 
         public ICollection<Passenger> Passenger { get; set; }
