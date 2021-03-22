@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,6 @@ using TranspotationTicketBooking.Models;
 
 namespace TranspotationTicketBooking.Controllers
 {
-    [Authorize(Roles = "BusController , Administrator")]
     [Route("[controller]")]
     [ApiController]
     public class SessionController : ControllerBase
@@ -41,6 +39,37 @@ namespace TranspotationTicketBooking.Controllers
             }
 
             return session;
+        }
+
+        // GET: api/Session/BusNo/####
+        [HttpGet("BusNo/{id}")]
+        public async Task<ActionResult<IEnumerable<SessionWithRoute>>> GetSessionWithBusno(string id)
+        {
+            //var SessionWithBusno = (_context.Session.Where(s => s.BusNo == id)).ToList();
+
+            var SessionWithBusno = (from r in _context.Session.Where(s => s.BusNo == id)
+                                    join s in _context.Route on r.RId equals s.RId
+                                    select new SessionWithRoute()
+                                    {
+                                        BusNo = r.BusNo,
+                                        Date = r.Date,
+                                        StartTime = r.StartTime,
+                                        RId = r.RId,
+                                        SId = r.SId,
+                                        Seats = r.Seats,
+                                        Start = s.StartHolt,
+                                        Stop = s.StopHolt,
+                                        RNum = s.RNum
+                                    }).ToList();
+
+
+
+            if (SessionWithBusno == null)
+            {
+                return NotFound();
+            }
+
+            return SessionWithBusno;
         }
 
         // PUT: api/Session/5

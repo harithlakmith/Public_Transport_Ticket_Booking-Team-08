@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,6 @@ using TranspotationTicketBooking.Models;
 
 namespace TranspotationTicketBooking.Controllers
 {
-    [Authorize(Roles = "BusController , Administrator")]
     [Route("[controller]")]
     [ApiController]
     public class RouteInfoController : ControllerBase
@@ -34,10 +32,10 @@ namespace TranspotationTicketBooking.Controllers
         public async Task<ActionResult<IEnumerable<SearchTownlist>>> GetTownList()
         {
             var townList = (from l in _context.RouteInfo
-                           select new SearchTownlist()
-                           {
-                               HoltName = l.HoltName
-                           }).Distinct().ToList();
+                            select new SearchTownlist()
+                            {
+                                HoltName = l.HoltName
+                            }).Distinct().ToList();
             if (townList == null)
             {
                 return NotFound();
@@ -50,11 +48,11 @@ namespace TranspotationTicketBooking.Controllers
 
         // GET: RouteInfo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RouteInfo>> GetRouteInfo(int id)
+        public async Task<ActionResult<IEnumerable<RouteInfo>>> GetRouteInfo(int id)
         {
-            var routeInfo = await _context.RouteInfo.FindAsync(id);
+            var routeInfo = (_context.RouteInfo.Where(s => s.RId == id)).ToList();
 
-            if (routeInfo == null)
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -103,7 +101,18 @@ namespace TranspotationTicketBooking.Controllers
             _context.RouteInfo.Add(routeInfo);
             await _context.SaveChangesAsync();
 
+
+
             return CreatedAtAction("GetRouteInfo", new { id = routeInfo.Id }, routeInfo);
+        }
+
+        [HttpPost("bulk/")]
+        public async Task<ActionResult<RouteInfo>> PostRouteInfoUp(RouteInfo routeInfo)
+        {
+
+
+
+            return Ok();
         }
 
         // DELETE: api/RouteInfo/5

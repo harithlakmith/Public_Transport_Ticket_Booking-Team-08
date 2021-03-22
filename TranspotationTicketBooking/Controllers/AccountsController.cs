@@ -41,7 +41,20 @@ namespace TranspotationTicketBooking.Controllers
         [HttpGet("Test")]  //api/Accounts/Test
         public String Test()
         {
+
             return "accounts controller!!!";
+        }
+
+
+        [HttpGet("GetEmail")]
+        public ActionResult<string> GetUserEmail()
+        {
+            var UEmail = User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Name, StringComparison.InvariantCultureIgnoreCase));
+            if (UEmail != null)
+            {
+                return Ok($"{UEmail.Value}");
+            }
+            return BadRequest("No claim");
         }
 
         //  [EnableCors("*", "*", "*")]
@@ -113,6 +126,7 @@ namespace TranspotationTicketBooking.Controllers
                 var signingCredentials = GetSigningCredentials();
                 var claims = GetClaims(user);
                 var tokenOptions = GenerateTokenOptions(signingCredentials, await claims);
+                //var UEmail = User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Name, StringComparison.InvariantCultureIgnoreCase));
                 /*var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                 return Ok(token);*/
                 return Ok(new
@@ -120,6 +134,7 @@ namespace TranspotationTicketBooking.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(tokenOptions),
                     role = roles,
                     data = user
+                    
                 });
             }
             return Unauthorized("Invalid Authentication");
@@ -247,7 +262,8 @@ namespace TranspotationTicketBooking.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email)
-            };
+                //new Claim("Id", "110")
+        };
             var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
             {
