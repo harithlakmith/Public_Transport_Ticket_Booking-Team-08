@@ -11,11 +11,12 @@ using Newtonsoft.Json;
 using System.Web;
 using System.Data;
 using System.Collections;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace TranspotationTicketBooking.Controllers
 {
     [Route("[controller]")]
+    [Authorize(Roles = "Passenger")]
     [ApiController]
     public class SearchController : ControllerBase
     {
